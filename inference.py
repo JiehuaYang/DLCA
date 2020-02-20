@@ -7,10 +7,7 @@ from importlib import import_module
 import shutil
 from utils.log_utils import *
 import sys
-
-sys.path.append('../')
 from utils.inference_utils import SplitComb
-
 import torch
 from torch.nn import DataParallel
 from torch.backends import cudnn
@@ -78,6 +75,7 @@ def main():
 
     test(test_loader, net, get_pbb, save_dir, config)
     return
+
 
 def test(data_loader, net, get_pbb, save_dir, config):
     start_time = time.time()
