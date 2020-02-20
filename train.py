@@ -151,7 +151,6 @@ def train(data_loader, net, loss, epoch, optimizer, get_lr, save_freq, save_dir)
         print("loss:\033[1;35m{}\033[0m, class:{}, reg:{},".format(loss_output[0],loss_output[1],loss_output[2]))
         metrics.append(loss_output)
        
-
     if epoch % save_freq == 0:
         state_dict = net.module.state_dict()
         for key in state_dict.keys():
