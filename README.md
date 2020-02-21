@@ -1,5 +1,9 @@
 # DLCA
 
+![aneurysm_prediction](visu.gif)
+#### left:  input (3D volume)
+#### right: output (3D volume)(white boxes means predictios, blackbox means label)
+
 ### Table of contents
 
   - [Introduction](#introduction)
@@ -44,6 +48,7 @@ python train.py -j=16 -b=12 --save-dir="./checkpoint/"
 ```bash
 python inference.py -j=1 -b=1 --resume="./checkpoint/trained_model.ckpt" --save-dir="./prediction/"
 ```
+
 
 ## Results
 
