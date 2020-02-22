@@ -41,10 +41,14 @@ pip install -r requirements.txt
 python train.py -j=16 -b=12 --save-dir="./checkpoint/"
 ```
 ### 2. Inference 
-* Click the [link(GoogleDrive)](https://drive.google.com/drive/folders/138_EpuZaMB0sS_dVmO0ux6_07sFfwRKZ?usp=sharing) to download trained model.
+* Click the [link(GoogleDrive)](https://drive.google.com/drive/folders/138_EpuZaMB0sS_dVmO0ux6_07sFfwRKZ?usp=sharing) to download trained model into "./checkpoint".
 * Run command as below.
 ```bash
-python inference.py -j=1 -b=1 --resume="./checkpoint/trained_model.ckpt" --save-dir="./prediction/"
+# an example with image named "123.nii.gz"
+mkdir image
+# put "123.nii.gz" under "./image"
+# save ["123"] as "test_name.npy"
+python inference.py -j=1 -b=1 --resume="./checkpoint/trained_model.ckpt" --data-dir="./image/" --test_name="test_name.npy"--save-dir="./prediction/"
 ```
 
 
