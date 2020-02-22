@@ -40,11 +40,9 @@ def load_label(root, name_list):
     return patient_labels
     
 
-def load_image(image_path, mean, std):
+def load_image(image_path):
     # w, h, z
     image = nib.load(image_path).get_fdata()
-    np.subtract(image, mean, out = image)
-    np.divide(image, std, out = image)
     # z, h, w
     image = image.transpose(2, 1, 0)
     image = np.expand_dims(image, axis = 0)
