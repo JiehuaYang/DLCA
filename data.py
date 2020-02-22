@@ -15,22 +15,16 @@ class TrainDetector(Dataset):
         # 0.3
         self.neg_ratio = config['r_rand_crop']
         self.pad_value = config["pad_value"]
-        # self.idxs = np.load(train_names)
-        self.idxs = ["3475149"]
+        self.idxs = np.load(train_names)
 
-        # self.patient_labels = load_label("./box_8bit/", self.idxs)
         self.patient_labels = load_label("", self.idxs)
         self.aneurysm_labels = oversample(config, self.patient_labels)
-        self.mean_std = np.load("./train_mean.npy")
-
-        #image_dir = "/usr/local/datasets/tiny_datasets/image/"
+        
         image_dir = ""# "./image_train/"
         self.filenames = [image_dir + "{}.nii.gz".format(idx) for idx in self.idxs]
-        #self.filenames = ["3475149.nii.gz"]
     
     
     def __getitem__(self, idx):
-        # to search 
         t = time.time()
         np.random.seed(int(str(t % 1)[2:7]))
 
@@ -45,7 +39,7 @@ class TrainDetector(Dataset):
         size = aneurysm_label[4]
 
         image_path = self.filenames[patient_idx]
-        image = load_image(image_path, self.mean_std[0], self.mean_std[1])
+        image = load_image(image_path)
         patient_label = self.patient_labels[patient_idx]
         
         crop_dict = crop_patch(image, aneurysm_label[1:], patient_label, neg_sample_flag, self.config)
@@ -68,27 +62,20 @@ class TrainDetector(Dataset):
 
 
 class TestDetector(Dataset):
-    def __init__(self, split_path, config, split_comber=None):
+    def __init__(self, image_dir, split_path, config, split_comber=None):
 
         self.max_stride = config['max_stride']
         self.stride = config['stride']
         self.pad_value = config['pad_value']
-        self.split_comber = split_comber
-        self.mean_std = np.load("./train_mean.npy")        
-
-        # self.idxs = np.load(split_path)
-        self.idxs = ["3475149"]
-
-        #image_dir = '/usr/local/datasets/tiny_datasets/image/'
-        
-        image_dir = ""
+        self.split_comber = split_comber    
+        self.idxs = np.load(split_path)
         self.filenames = [os.path.join(image_dir, '{}.nii.gz'.format(idx)) for idx in self.idxs]
 
     def __getitem__(self, idx, split=None):
         # t = time.time()
         # np.random.seed(int(str(t % 1)[2:7]))
         np.random.seed(3)  
-        imgs = load_image(self.filenames[idx], self.mean_std[0], self.mean_std[1])
+        imgs = load_image(self.filenames[idx])
         
         nz, nh, nw = imgs.shape[1:]
         pz = int(np.ceil(float(nz) / self.stride)) * self.stride
