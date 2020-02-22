@@ -47,8 +47,7 @@ python train.py -j=16 -b=12 --save-dir="./checkpoint/"
 # an example with image named "123.nii.gz"
 mkdir image
 # put "123.nii.gz" under "./image"
-# save ["123"] as "test_name.npy"
-python inference.py -j=1 -b=1 --resume="./checkpoint/trained_model.ckpt" --data-dir="./image/" --test_name="test_name.npy"--save-dir="./prediction/"
+python inference.py -j=1 -b=1 --resume="./checkpoint/trained_model.ckpt" --data-dir="./image/" --test_name="123" --save-dir="./prediction/"
 ```
 
 
