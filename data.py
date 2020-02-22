@@ -62,13 +62,16 @@ class TrainDetector(Dataset):
 
 
 class TestDetector(Dataset):
-    def __init__(self, image_dir, split_path, config, split_comber=None):
+    def __init__(self, image_dir, test_name, config, split_comber=None):
 
         self.max_stride = config['max_stride']
         self.stride = config['stride']
         self.pad_value = config['pad_value']
-        self.split_comber = split_comber    
-        self.idxs = np.load(split_path)
+        self.split_comber = split_comber   
+        # more images
+        # self.idxs = np.load(split_path)
+        # one image
+        self.idxs = [test_name]
         self.filenames = [os.path.join(image_dir, '{}.nii.gz'.format(idx)) for idx in self.idxs]
 
     def __getitem__(self, idx, split=None):
