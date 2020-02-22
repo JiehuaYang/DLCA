@@ -2,7 +2,7 @@
 
 ![aneurysm_prediction](visu.gif)
 #### left:  input (3D volume)
-#### right: output (3D volume)(white boxes mean predictios, black box means label)
+#### right: output (3D volume)(white boxes mean predictions, black box means label)
 
 ### Table of contents
 
