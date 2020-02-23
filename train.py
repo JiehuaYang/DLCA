@@ -54,10 +54,11 @@ def main():
     data_dir = args.input   
     save_dir = args.output
     
-    test_name = []
+    train_name = []
     for name in os.listdir(data_dir):
-        name = name.split(".")[-3]
-        test_name.append(name)
+        if name.endwith("nii.gz"):
+            name = name.split(".")[-3]
+            train_name.append(name)
 
     torch.manual_seed(0)
 
