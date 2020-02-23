@@ -44,7 +44,7 @@ def main():
     config, net, loss, get_pbb = model.get_model()
     test_name = (args.input).split("/")[-1]
     data_dir = (args.input).split("/")[-2]
-    save_dir = (args.save_dir).split("/")[-2]
+    save_dir = (args.output).split("/")[-2]
 
     if args.resume:
         checkpoint = torch.load(args.resume)
