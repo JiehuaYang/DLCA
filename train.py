@@ -37,7 +37,9 @@ parser.add_argument('--save-freq', default='1', type=int, metavar='S',
                     help='save frequency')
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
-parser.add_argument('--save-dir', default='', type=str, metavar='SAVE',
+parser.add_argument('--input', default='', type=str, metavar='SAVE',
+                    help='directory to save train images (default: none)')
+parser.add_argument('--output', default='', type=str, metavar='SAVE',
                     help='directory to save checkpoint (default: none)')
 parser.add_argument('--test', default=0, type=int, metavar='TEST',
                     help='1 do test evaluation, 0 not')
@@ -49,7 +51,9 @@ def main():
     global args
     args = parser.parse_args()
     start_epoch = args.start_epoch
-    save_dir = args.save_dir
+    data_dir = args.input   
+    save_dir = args.output
+    test_name = gen_name_list(data_dir)
 
     torch.manual_seed(0)
 
@@ -79,11 +83,10 @@ def main():
     cudnn.benchmark = True
     net = DataParallel(net)
 
-    datadir = ""
     dataset = data.TrainDetector(
-        datadir,
+        data_dir,
         # your train name
-        "./train.npy",
+        train_name,
         config)
     train_loader = DataLoader(
         dataset,
