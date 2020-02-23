@@ -90,7 +90,6 @@ def main():
 
     dataset = data.TrainDetector(
         data_dir,
-        # your train name
         train_name,
         config)
     train_loader = DataLoader(
