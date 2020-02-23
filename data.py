@@ -9,18 +9,16 @@ import collections
 
 
 class TrainDetector(Dataset):
-    def __init__(self, root, train_names, config):
+    def __init__(self, image_dir, train_names, config):
 
         self.config = config
         # 0.3
         self.neg_ratio = config['r_rand_crop']
         self.pad_value = config["pad_value"]
-        self.idxs = np.load(train_names)
+        self.idxs = train_names
 
         self.patient_labels = load_label("", self.idxs)
         self.aneurysm_labels = oversample(config, self.patient_labels)
-        
-        image_dir = ""# "./image_train/"
         self.filenames = [image_dir + "{}.nii.gz".format(idx) for idx in self.idxs]
     
     
