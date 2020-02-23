@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ### 1. Train 
 * Run command as below.
 ```bash
-python train.py -j=16 -b=12 --input="train_image/" --output="./checkpoint/"
+python train.py -j=16 -b=12 --input="train_data/" --output="./checkpoint/"
 ```
 ### 2. Inference 
 * Click the [link(GoogleDrive)](https://drive.google.com/drive/folders/138_EpuZaMB0sS_dVmO0ux6_07sFfwRKZ?usp=sharing) to download trained model into "./checkpoint".
