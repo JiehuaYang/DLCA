@@ -1,7 +1,7 @@
 # DLCA
 ![detection_visu](visu.gif)
 left: input (3D volume)
-right: output (3D volume. White boxes：predictions, black box：GT label）
+right: output (3D volume. Blue boxes：predictions, red box：GT label）
 
 ### Table of contents
 
