@@ -56,7 +56,7 @@ def main():
     
     train_name = []
     for name in os.listdir(data_dir):
-        if name.endwith("nii.gz"):
+        if name.endswith("nii.gz"):
             name = name.split(".")[-3]
             train_name.append(name)
 
