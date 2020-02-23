@@ -53,7 +53,11 @@ def main():
     start_epoch = args.start_epoch
     data_dir = args.input   
     save_dir = args.output
-    test_name = gen_name_list(data_dir)
+    
+    test_name = []
+    for name in os.listdir(data_dir):
+        name = name.split(".")[-3]
+        test_name.append(name)
 
     torch.manual_seed(0)
 
