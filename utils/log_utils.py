@@ -36,3 +36,11 @@ def plot(name,loss_total,loss_class,loss_regress,tpr,tnr):
     ax1.set_title('loss_curve, r=loss_total, b=loss_class')
     ax2.set_title('metric_curve, r=tpr, b=tnr')
     plt.savefig(name)
+    
+ 
+def gen_name_list(data_dir):
+    name_list = []
+    for name in os.listdir(data_dir):
+        name = name.split(".")[-3]
+        name_list.append(name)
+    return name_list
