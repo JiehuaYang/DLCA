@@ -9,7 +9,7 @@ import collections
 
 
 class TrainDetector(Dataset):
-    def __init__(self, image_dir, train_names, config):
+   def __init__(self, data_dir, train_names, config):
 
         self.config = config
         # 0.3
@@ -17,9 +17,9 @@ class TrainDetector(Dataset):
         self.pad_value = config["pad_value"]
         self.idxs = train_names
 
-        self.patient_labels = load_label("", self.idxs)
+        self.patient_labels = load_label(data_dir, self.idxs)
         self.aneurysm_labels = oversample(config, self.patient_labels)
-        self.filenames = [image_dir + "{}.nii.gz".format(idx) for idx in self.idxs]
+        self.filenames = [data_dir + "{}.nii.gz".format(idx) for idx in self.idxs]
     
     
     def __getitem__(self, idx):
