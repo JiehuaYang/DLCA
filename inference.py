@@ -25,12 +25,10 @@ parser.add_argument('-b', '--batch-size', default=1, type=int,
                     metavar='N', help='mini-batch size (default: 16)')
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
-parser.add_argument('--data-dir', default='', type=str, metavar='data',
-                    help='directory to load data (default: none)')
-parser.add_argument('--test-name', default='', type=str, metavar='test_name',
-                    help='all file name of test set')
-parser.add_argument('--save-dir', default='', type=str, metavar='SAVE',
-                    help='directory to save checkpoint (default: none)')
+parser.add_argument('--input', default='', type=str, metavar='data',
+                    help='directory to save images (default: none)')
+parser.add_argument('--output', default='', type=str, metavar='SAVE',
+                    help='directory to save prediction results(default: none)')
 parser.add_argument('--test', default=1, type=int, metavar='TEST',
                     help='1 do test evaluation, 0 not')
 parser.add_argument('--n_test', default=1, type=int, metavar='N',
@@ -46,9 +44,9 @@ def main():
 
     model = import_module(args.model)
     config, net, loss, get_pbb = model.get_model()
-    test_name = args.test_name
-    data_dir = args.data_dir
-    save_dir = args.save_dir
+    test_name = (args.input).split("/")[-1]
+    data_dir = (args.input).split("/")[-2]
+    save_dir = (args.save_dir).split("/")[-2]
 
     if args.resume:
         checkpoint = torch.load(args.resume)
