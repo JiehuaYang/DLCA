@@ -33,8 +33,6 @@ parser.add_argument('--test', default=1, type=int, metavar='TEST',
                     help='1 do test evaluation, 0 not')
 parser.add_argument('--n_test', default=1, type=int, metavar='N',
                     help='number of gpu for test')
-parser.add_argument('--epoch', default=100, type=int, metavar='N',
-                    help='number of epoch for test')
 
 
 def main():
@@ -84,7 +82,6 @@ def main():
 
 def test(data_loader, net, get_pbb, save_dir, config):
     start_time = time.time()
-    save_dir = os.path.join(save_dir,'bbox_{}'.format(args.epoch))
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
     print(save_dir)
