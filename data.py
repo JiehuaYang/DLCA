@@ -73,7 +73,9 @@ class TestDetector(Dataset):
         # t = time.time()
         # np.random.seed(int(str(t % 1)[2:7]))
         np.random.seed(3)  
-        imgs = load_image(self.filenames[idx])
+        mean = -535.85
+        std = 846.87
+        imgs = load_image(self.filenames[idx], mean, std)
         
         nz, nh, nw = imgs.shape[1:]
         pz = int(np.ceil(float(nz) / self.stride)) * self.stride
