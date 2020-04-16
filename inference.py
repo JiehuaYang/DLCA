@@ -7,7 +7,7 @@ from importlib import import_module
 import shutil
 from utils.log_utils import *
 import sys
-from utils.inference_utils import SplitComb
+from utils.inference_utils import SplitComb, postprocess, plot_box 
 import torch
 from torch.nn import DataParallel
 from torch.backends import cudnn
@@ -81,14 +81,13 @@ def main():
 
 
 def test(data_loader, net, get_pbb, save_dir, config):
-    start_time = time.time()
+
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
     print(save_dir)
     net.eval()
     split_comber = data_loader.dataset.split_comber
     for i_name, (data, coord, nzhw) in enumerate(data_loader):
-        s = time.time()
         nzhw = nzhw[0]
         name = data_loader.dataset.filenames[i_name].split('-')[0].split('/')[-1]
         data = data[0][0]
@@ -111,11 +110,13 @@ def test(data_loader, net, get_pbb, save_dir, config):
         thresh = -3
         pbb,mask = get_pbb(output,thresh,ismask=True)
         print([i_name,name])
-        e = time.time()
-        np.save(os.path.join(save_dir, name+'_pbb.npy'), pbb)
-    end_time = time.time()
-    print('elapsed time is %3.2f seconds' % (end_time - start_time))
-
+        pbb_nms = postprocess(pbb)
+        np.save(os.path.join(save_dir, name+'_pbb.npy'), pbb_nms)
+        
+        print("start plot prediction boxes")
+        plot_box(name, pbb_nms)
+    
 
 if __name__ == '__main__':
     main()
+    
