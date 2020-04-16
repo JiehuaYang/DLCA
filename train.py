@@ -114,7 +114,7 @@ def main():
             lr = 0.01 * args.lr
         return lr
 
-    loss_total_l,loss_class_l,loss_regress_l,tpr_l,tnr_l = [],[],[],[],[]
+    loss_total_l, loss_class_l, loss_regress_l, tpr_l, tnr_l = [], [], [], [], []
 
     for epoch in range(start_epoch, args.epochs + 1):
         print("epoch",epoch)
@@ -125,13 +125,13 @@ def main():
         loss_regress_l.append(loss_regress)
         tpr_l.append(tpr)
         tnr_l.append(tnr)
-        plot(save_dir + 'train_curves.png',loss_total_l,loss_class_l,loss_regress_l,tpr_l,tnr_l)
+        plot(save_dir + 'train_curves.png', loss_total_l, loss_class_l, loss_regress_l, tpr_l, tnr_l)
         np.savez(save_dir + 'train_curves.npz',
-                 loss_total=np.array(loss_total_l),
-                 loss_class=np.array(loss_class_l),
-                 loss_regress=np.array(loss_regress_l),
-                 tpr=np.array(tpr_l),
-                 tnr=np.array(tnr_l))
+                 loss_total = np.array(loss_total_l),
+                 loss_class = np.array(loss_class_l),
+                 loss_regress = np.array(loss_regress_l),
+                 tpr = np.array(tpr_l),
+                 tnr = np.array(tnr_l))
 
 
 def train(data_loader, net, loss, epoch, optimizer, get_lr, save_freq, save_dir):
@@ -173,11 +173,11 @@ def train(data_loader, net, loss, epoch, optimizer, get_lr, save_freq, save_dir)
     end_time = time.time()
 
     metrics = np.asarray(metrics, np.float32)
-    tpr=100.0*np.sum(metrics[:,6])/np.sum(metrics[:,7])
-    tnr=100.0*np.sum(metrics[:,8])/np.sum(metrics[:,9])
-    loss_total=np.mean(metrics[:,0])
-    loss_class=np.mean(metrics[:,1])
-    loss_regress=[np.mean(metrics[:,2]),np.mean(metrics[:,3]),np.mean(metrics[:,4]),np.mean(metrics[:,5])]
+    tpr = 100.0 * np.sum(metrics[:, 6]) / np.sum(metrics[:, 7])
+    tnr = 100.0 * np.sum(metrics[:, 8]) / np.sum(metrics[:, 9])
+    loss_total = np.mean(metrics[:, 0])
+    loss_class = np.mean(metrics[:, 1])
+    loss_regress = [np.mean(metrics[:, 2]), np.mean(metrics[:, 3]), np.mean(metrics[:, 4]), np.mean(metrics[:, 5])]
 
     print("metrics",metrics[:, 6])
     print('Epoch %03d (lr %.5f)' % (epoch, lr))
@@ -194,7 +194,7 @@ def train(data_loader, net, loss, epoch, optimizer, get_lr, save_freq, save_dir)
         np.mean(metrics[:, 3]),
         np.mean(metrics[:, 4]),
         np.mean(metrics[:, 5])))
-    return loss_total,loss_class,loss_regress,tpr,tnr
+    return loss_total, loss_class, loss_regress, tpr, tnr
 
 
 if __name__ == '__main__':
